@@ -59,7 +59,8 @@ client
   });
 const RedisStore = require("connect-redis")(session);
 
-
+//MONGO
+// cluster 'cluster-desafio-inicio' /  DB 'test' / coleccion 'usuarios'
 mongoose
   .connect("mongodb+srv://melisen:password-desafio@cluster-desafio-inicio.4b6gwyo.mongodb.net/?retryWrites=true&w=majority")
   .then(() => console.log("Connected to Mongo"))
@@ -67,6 +68,7 @@ mongoose
     console.error(e);
     throw "cannot connect to mongo";
   });
+ 
 
 function isValidPassword(user, password) {
   return bcrypt.compareSync(password, user.password);
@@ -124,6 +126,7 @@ passport.use(
             console.log("Error in Saving user in Usuarios: " + err);
             return done(err);
           }
+
           console.log(user);
           console.log("User Registration succesful");
           return done(null, userWithId);
@@ -160,8 +163,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 
 
 //crear productos random para "/productos-test"
